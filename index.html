@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serinelec — Ingeniería Eléctrica, Inspecciones ITO y Proyectos Industriales</title>
+  <meta name="description" content="Serinelec: Soluciones técnicas de ingeniería eléctrica, inspección técnica de obras (ITO), proyectos en media y baja tensión, y certificaciones SEC en Chile.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- Header Corporativo -->
+    <!-- Header Corporativo -->
+    <!-- Header Corporativo Serinelec -->
+  <header class="site-header" id="site-header">
+    <!-- Top Bar Integrada: Logo Grande + Contato + Idioma -->
+    <div class="header-top">
+      <div class="container header-top-container">
+        <!-- Logo Grande Original em Linha Única -->
+        <a href="index.html" class="brand-link" aria-label="Serinelec — Inicio">
+          <img src="assets/images/logo.png" alt="Serinelec — Servicios de Ingeniería Eléctrica" class="brand-logo-img" width="474" height="76">
+        </a>
+
+        <!-- Contatos e Idioma alinhados à direita na mesma linha -->
+        <div class="header-tools">
+          <div class="header-contact-direct">
+            <a href="tel:+56985680824" class="header-contact-link" title="Teléfono directo">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>+56 9 8568 0824</span>
+            </a>
+            <a href="mailto:lcarrasco@serinelec.cl" class="header-contact-link" title="Correo electrónico directo">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>lcarrasco@serinelec.cl</span>
+            </a>
+          </div>
+
+          <!-- Selector de Idiomas -->
+          <div class="lang-selector js-lang-selector">
+            <button type="button" class="lang-btn js-lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Seleccionar idioma">
+              <span aria-hidden="true">🇨🇱</span> <span class="lang-code-text">ES</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="lang-dropdown js-lang-dropdown" role="menu">
+              <button type="button" class="lang-option is-active" role="menuitem" aria-current="true">
+                <span>🇨🇱 Español (Chile)</span>
+                <span style="color: var(--color-success); font-size: 0.75rem;">✓ Activo</span>
+              </button>
+              <button type="button" class="lang-option is-disabled js-lang-option-disabled" role="menuitem">
+                <span>🇺🇸 English</span>
+                <span class="badge-soon">Próximamente</span>
+              </button>
+              <button type="button" class="lang-option is-disabled js-lang-option-disabled" role="menuitem">
+                <span>🇧🇷 Português</span>
+                <span class="badge-soon">Próximamente</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Botón Mobile Toggle -->
+          <button type="button" class="mobile-toggle js-mobile-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="mobile-drawer">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de Navegação Horizontal Fiel ao Original -->
+    <nav class="main-navbar" aria-label="Navegación principal">
+      <div class="container main-navbar-container">
+        <ul class="main-navbar-list">
+            <li class="nav-item"><a href="capacitaciones.html" class="nav-link">Capacitaciones</a></li>
+            <li class="nav-item"><a href="gestion-produccion.html" class="nav-link">Gestión y Producción</a></li>
+            <li class="nav-item"><a href="inspecciones.html" class="nav-link">Inspecciones</a></li>
+            <li class="nav-item"><a href="proyectos-electricos.html" class="nav-link">Proyectos Eléctricos</a></li>
+            <li class="nav-item"><a href="contacto.html" class="nav-link">Contacto</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Drawer Menú Mobile -->
+  <div class="mobile-backdrop js-mobile-backdrop" aria-hidden="true"></div>
+  <aside class="mobile-drawer js-mobile-drawer" id="mobile-drawer" aria-hidden="true" aria-label="Menú móvil">
+    <div class="mobile-drawer-header">
+      <img src="assets/images/logo.png" alt="Serinelec" height="40" style="width: auto;">
+      <button type="button" class="drawer-close js-drawer-close" aria-label="Cerrar menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <nav aria-label="Navegación móvil">
+      <ul class="mobile-nav-list">
+        <li><a href="capacitaciones.html" class="mobile-nav-link">Capacitaciones</a></li>
+        <li><a href="gestion-produccion.html" class="mobile-nav-link">Gestión y Producción</a></li>
+        <li><a href="inspecciones.html" class="mobile-nav-link">Inspecciones ITO</a></li>
+        <li><a href="proyectos-electricos.html" class="mobile-nav-link">Proyectos Eléctricos</a></li>
+        <li><a href="contacto.html" class="mobile-nav-link">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-footer">
+      <a href="contacto.html" class="btn btn-accent" style="width: 100%;">Contactar Ahora</a>
+      <div style="font-size: 0.85rem; color: var(--color-text-muted); text-align: center;">
+        <p><strong>Tel:</strong> +56 9 8568 0824</p>
+        <p><strong>Email:</strong> lcarrasco@serinelec.cl</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Contenido Principal -->
+  <main id="main-content">
+
+    <!-- HERO CAROUSEL -->
+    <section class="hero-carousel js-hero-carousel" aria-label="Destacados de servicios Serinelec" aria-roledescription="carousel">
+      <div class="carousel-track-wrapper">
+        <div class="carousel-slides">
+
+          <!-- SLIDE 1: Ingeniería Eléctrica -->
+          <article class="carousel-slide is-active js-carousel-slide" aria-roledescription="slide" aria-label="1 de 3: Ingeniería Eléctrica" aria-hidden="false">
+            <div class="slide-bg-container">
+              <picture>
+                <source srcset="assets/images/hero/hero-1-ingenieria.webp" type="image/webp">
+                <img src="assets/images/hero/hero-1-ingenieria.jpg" alt="Instalaciones y tableros de ingeniería eléctrica Serinelec" class="slide-bg-image" width="970" height="183">
+              </picture>
+              <div class="slide-overlay"></div>
+            </div>
+            <div class="container slide-content">
+              <div class="slide-body">
+                <span class="slide-pill">Ingeniería Eléctrica</span>
+                <h1 class="slide-title">Ingeniería eléctrica para proyectos que avanzan</h1>
+                <p class="slide-text">Soluciones técnicas orientadas a la seguridad, eficiencia y confiabilidad de sus instalaciones en baja y media tensión.</p>
+                <div class="slide-actions">
+                  <a href="proyectos-electricos.html" class="btn btn-accent btn-lg">Conozca nuestros servicios</a>
+                  <a href="contacto.html" class="btn btn-outline-white btn-lg">Solicitar Presupuesto</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- SLIDE 2: Inspecciones ITO y Asesoría -->
+          <article class="carousel-slide js-carousel-slide" aria-roledescription="slide" aria-label="2 de 3: Inspecciones y Asesoría" aria-hidden="true">
+            <div class="slide-bg-container">
+              <picture>
+                <source srcset="assets/images/hero/hero-2-inspecciones.webp" type="image/webp">
+                <img src="assets/images/hero/hero-2-inspecciones.jpg" alt="Equipamiento de potencia e inspección técnica eléctrica" class="slide-bg-image" width="970" height="183" loading="lazy">
+              </picture>
+              <div class="slide-overlay"></div>
+            </div>
+            <div class="container slide-content">
+              <div class="slide-body">
+                <span class="slide-pill">Inspecciones ITO &amp; Asesoría</span>
+                <h2 class="slide-title">Confianza y precisión en cada proyecto</h2>
+                <p class="slide-text">Servicios especializados de inspección técnica eléctrica (ITO) y verificación normativa NCh 4/2003 para garantizar instalaciones seguras y conformes.</p>
+                <div class="slide-actions">
+                  <a href="inspecciones.html" class="btn btn-accent btn-lg">Descubra nuestras soluciones</a>
+                  <a href="contacto.html" class="btn btn-outline-white btn-lg">Contactar Especialista</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- SLIDE 3: Proyectos y Servicios Industriales -->
+          <article class="carousel-slide js-carousel-slide" aria-roledescription="slide" aria-label="3 de 3: Proyectos y Servicios Industriales" aria-hidden="true">
+            <div class="slide-bg-container">
+              <picture>
+                <source srcset="assets/images/hero/hero-3-proyectos.webp" type="image/webp">
+                <img src="assets/images/hero/hero-3-proyectos.jpg" alt="Infraestructura y líneas eléctricas industriales" class="slide-bg-image" width="970" height="183" loading="lazy">
+              </picture>
+              <div class="slide-overlay"></div>
+            </div>
+            <div class="container slide-content">
+              <div class="slide-body">
+                <span class="slide-pill">Sector Industrial &amp; Minería</span>
+                <h2 class="slide-title">Soluciones para los desafíos de su empresa</h2>
+                <p class="slide-text">Experiencia técnica aplicada a proyectos eléctricos, transformación de potencia y gestión productiva para industrias y minería.</p>
+                <div class="slide-actions">
+                  <a href="contacto.html" class="btn btn-accent btn-lg">Contáctenos</a>
+                  <a href="gestion-produccion.html" class="btn btn-outline-white btn-lg">Gestión de Producción</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Controles del Carrossel -->
+      <div class="carousel-controls">
+        <div class="container">
+          <div class="carousel-pagination" role="tablist" aria-label="Diapositivas del carrusel">
+            <button type="button" class="carousel-indicator is-active js-carousel-indicator" role="tab" aria-selected="true" aria-label="Slide 1"></button>
+            <button type="button" class="carousel-indicator js-carousel-indicator" role="tab" aria-selected="false" aria-label="Slide 2"></button>
+            <button type="button" class="carousel-indicator js-carousel-indicator" role="tab" aria-selected="false" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-nav-arrows">
+            <button type="button" class="carousel-btn js-carousel-prev" aria-label="Diapositiva anterior">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button type="button" class="carousel-btn js-carousel-next" aria-label="Diapositiva siguiente">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER DE CLIENTES Y EJECUCIONES CONFIRMADAS -->
+    <section class="clients-strip" aria-label="Empresas con ejecuciones realizadas">
+      <div class="container">
+        <div class="clients-wrapper">
+          <p class="clients-label">Experiencia y capacitaciones ejecutadas en organizaciones líderes</p>
+          <div class="clients-grid">
+            <div class="client-badge-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-hover)" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+              Minera Spence de BHP
+            </div>
+            <div class="client-badge-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-hover)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              Megacraft
+            </div>
+            <div class="client-badge-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-hover)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              Inox Man
+            </div>
+            <div class="client-badge-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-hover)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              Avosnack
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE SERVICIOS -->
+    <section class="section section-alt" id="servicios" aria-labelledby="servicios-heading">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-pill">Áreas de Especialidad</span>
+          <h2 class="section-title" id="servicios-heading">Servicios Integrales de Ingeniería Eléctrica</h2>
+          <p class="section-subtitle">Acompañamos a su empresa desde el diseño conceptual y cálculo normativo hasta la inspección técnica en obra y regularización ante las entidades fiscalizadoras.</p>
+        </header>
+
+        <div class="services-grid">
+
+          <!-- Card 1: Proyectos Eléctricos -->
+          <article class="service-card">
+            <div class="service-card-media">
+              <picture>
+                <source srcset="assets/images/services/proyectos-electricos.webp" type="image/webp">
+                <img src="assets/images/services/proyectos-electricos.jpg" alt="Planos y proyectos eléctricos de potencia" class="service-card-img" width="300" height="190" loading="lazy">
+              </picture>
+              <span class="service-badge">Media y Baja Tensión</span>
+            </div>
+            <div class="service-card-body">
+              <h3 class="service-card-title">Proyectos Eléctricos</h3>
+              <p class="service-card-desc">Diseño de planos, regularización de instalaciones interiores, tramitación de certificados TE1 (SEC), aumento de potencia y empalmes comerciales e industriales.</p>
+              <div class="service-card-footer">
+                <a href="proyectos-electricos.html" class="service-link" aria-label="Ver detalles de Proyectos Eléctricos">
+                  Más información
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Inspecciones ITO -->
+          <article class="service-card">
+            <div class="service-card-media">
+              <picture>
+                <source srcset="assets/images/services/inspecciones.webp" type="image/webp">
+                <img src="assets/images/services/inspecciones.jpg" alt="Inspección técnica de obras eléctricas ITO" class="service-card-img" width="300" height="190" loading="lazy">
+              </picture>
+              <span class="service-badge">Norma NCh. 4/2003</span>
+            </div>
+            <div class="service-card-body">
+              <h3 class="service-card-title">Inspecciones ITO</h3>
+              <p class="service-card-desc">Inspección técnica de obras con entrega de informe simple y detallado, respaldo fotográfico y verificación exhaustiva de tableros, cámaras y canalizaciones.</p>
+              <div class="service-card-footer">
+                <a href="inspecciones.html" class="service-link" aria-label="Ver detalles de Inspecciones ITO">
+                  Más información
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Gestión y Producción -->
+          <article class="service-card">
+            <div class="service-card-media">
+              <picture>
+                <source srcset="assets/images/services/gestion-produccion.webp" type="image/webp">
+                <img src="assets/images/services/gestion-produccion.jpg" alt="Gestión industrial y administración de fábricas eléctricas" class="service-card-img" width="300" height="190" loading="lazy">
+              </picture>
+              <span class="service-badge">Transformadores</span>
+            </div>
+            <div class="service-card-body">
+              <h3 class="service-card-title">Gestión y Producción</h3>
+              <p class="service-card-desc">Herramientas administrativas y tácticas para maximizar la eficiencia industrial, administración y control en fábricas de transformadores y equipos eléctricos.</p>
+              <div class="service-card-footer">
+                <a href="gestion-produccion.html" class="service-link" aria-label="Ver detalles de Gestión y Producción">
+                  Más información
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4: Capacitaciones -->
+          <article class="service-card">
+            <div class="service-card-media">
+              <picture>
+                <source srcset="assets/images/services/capacitaciones.webp" type="image/webp">
+                <img src="assets/images/services/capacitaciones.jpg" alt="Cursos y capacitación técnica en electricidad" class="service-card-img" width="300" height="190" loading="lazy">
+              </picture>
+              <span class="service-badge">Formación Técnica</span>
+            </div>
+            <div class="service-card-body">
+              <h3 class="service-card-title">Capacitaciones</h3>
+              <p class="service-card-desc">Cursos técnicos sobre normativa eléctrica, prevención de riesgos de accidentes, tarificación eléctrica y metodologías para el ahorro de energía en empresas y aula.</p>
+              <div class="service-card-footer">
+                <a href="capacitaciones.html" class="service-link" aria-label="Ver detalles de Capacitaciones">
+                  Más información
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE DIFERENCIALES Y RESPALDO TÉCNICO -->
+    <section class="section" aria-labelledby="diferenciales-heading">
+      <div class="container">
+        <div class="about-grid">
+          <div>
+            <span class="section-pill">Por qué elegir a Serinelec</span>
+            <h2 class="section-title" id="diferenciales-heading">Ingeniería respaldada por experiencia normativa y en terreno</h2>
+            <p style="color: var(--color-text-muted); font-size: 1.05rem; margin-top: var(--space-sm);">
+              En Serinelec transformamos complejidades normativas y desafíos técnicos en instalaciones seguras, eficientes y completamente regularizadas bajo los más estrictos estándares chilenos e internacionales.
+            </p>
+
+            <div class="feature-list">
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <div class="feature-text">
+                  <h4>Licencia Clase A (SEC)</h4>
+                  <p>Habilitación técnica para instalaciones eléctricas sin restricción de potencia en Media y Baja Tensión.</p>
+                </div>
+              </div>
+
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <div class="feature-text">
+                  <h4>Dominio de Estándares Internacionales</h4>
+                  <p>Conocimiento comprobado en normas técnicas ANSI, IEC, NCH, NEMA, IP y ASTM para todo tipo de proyectos industriales.</p>
+                </div>
+              </div>
+
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                </div>
+                <div class="feature-text">
+                  <h4>Gestión Integral con Empresas Distribuidoras</h4>
+                  <p>Tramitación directa de empalmes monofásicos y trifásicos ante Enel (Chilectra), CGE, Empresa Eléctrica Puente Alto, Chilquinta y cooperativas.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card de Respaldo del Ingeniero a Cargo -->
+          <div>
+            <div class="credential-card">
+              <span class="credential-badge">Liderazgo Técnico</span>
+              <h3 class="credential-title">Ing. Leandro Carrasco</h3>
+              <p class="credential-lead">Ingeniería Eléctrica y Especialista de Proyectos</p>
+
+              <div class="credential-points">
+                <div class="credential-point">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Diseño de Transformadores:</strong> Capacidad técnica de hasta 4 MVA y 35 KV.</span>
+                </div>
+                <div class="credential-point">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Transformadores de Medida:</strong> Diseño de 1, 2 y 3 elementos para medición de precisión.</span>
+                </div>
+                <div class="credential-point">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Telecomunicaciones:</strong> Montaje de líneas de transmisión y tendido de fibra óptica.</span>
+                </div>
+                <div class="credential-point">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Cobertura:</strong> Presupuesto sin costo en toda la Región Metropolitana.</span>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+                <a href="contacto.html" class="btn btn-accent" style="flex-grow: 1;">Contactar al Ingeniero</a>
+                <a href="tel:+56985680824" class="btn btn-outline-white">Llamar Ahora</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DESTACADA: PRESUPUESTO GRATIS Y COBERTURA -->
+    <section class="section section-dark" aria-label="Presupuesto y Cobertura">
+      <div class="container text-center" style="max-width: 800px; margin: 0 auto;">
+        <span class="section-pill">Atención Personalizada</span>
+        <h2 class="section-title">¿Tiene un proyecto eléctrico en mente o requiere regularizar sus instalaciones?</h2>
+        <p class="section-subtitle" style="margin-bottom: var(--space-xl);">
+          Evaluamos sus requerimientos técnicos con agilidad. Ofrecemos <strong>presupuesto sin costo en toda la Región Metropolitana</strong> y atención especializada para proyectos industriales a lo largo de Chile.
+        </p>
+        <div style="display: flex; justify-content: center; gap: var(--space-md); flex-wrap: wrap;">
+          <a href="contacto.html" class="btn btn-accent btn-lg">Solicitar Presupuesto Gratuito</a>
+          <a href="proyectos-electricos.html" class="btn btn-outline-white btn-lg">Conocer Servicios Eléctricos</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé Corporativo -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Col 1: Marca & Resumen -->
+        <div class="footer-col-brand">
+          <img src="assets/images/logo.png" alt="Serinelec" class="footer-logo-img" width="280" height="45">
+          <p class="footer-brand-desc">
+            Empresa chilena de ingeniería eléctrica dedicada al diseño, inspección técnica ITO, regularización ante el SEC, transformadores de potencia y capacitación técnica.
+          </p>
+          <div style="font-size: 0.8125rem; color: #94a3b8; background: rgba(255,255,255,0.05); padding: 0.5rem 0.8rem; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.1);">
+            <strong>Licencia SEC Clase A:</strong> Media y Baja Tensión
+          </div>
+        </div>
+
+        <!-- Col 2: Navegación -->
+        <div>
+          <h3 class="footer-title">Navegación</h3>
+          <ul class="footer-links">
+            <li><a href="index.html" class="footer-link">Inicio</a></li>
+            <li><a href="proyectos-electricos.html" class="footer-link">Proyectos Eléctricos</a></li>
+            <li><a href="inspecciones.html" class="footer-link">Inspecciones ITO</a></li>
+            <li><a href="gestion-produccion.html" class="footer-link">Gestión y Producción</a></li>
+            <li><a href="capacitaciones.html" class="footer-link">Capacitaciones</a></li>
+            <li><a href="contacto.html" class="footer-link">Contacto</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Servicios Principales -->
+        <div>
+          <h3 class="footer-title">Especialidades</h3>
+          <ul class="footer-links">
+            <li><a href="proyectos-electricos.html" class="footer-link">Declaración SEC (TE1)</a></li>
+            <li><a href="proyectos-electricos.html" class="footer-link">Aumento de Potencia</a></li>
+            <li><a href="inspecciones.html" class="footer-link">Inspección ITO en Obras</a></li>
+            <li><a href="gestion-produccion.html" class="footer-link">Transformadores de Potencia</a></li>
+            <li><a href="capacitaciones.html" class="footer-link">Cursos de Eficiencia Eléctrica</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contacto Confirmado -->
+        <div>
+          <h3 class="footer-title">Contacto Directo</h3>
+          <ul class="footer-contact-list">
+            <li class="footer-contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              <span><strong>Ing. Leandro Carrasco</strong></span>
+            </li>
+            <li class="footer-contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <a href="tel:+56985680824">+56 9 8568 0824</a>
+            </li>
+            <li class="footer-contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <a href="mailto:lcarrasco@serinelec.cl">lcarrasco@serinelec.cl</a>
+            </li>
+            <li class="footer-contact-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Presupuestos gratis en toda la Región Metropolitana, Chile</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+          <p>© <span class="js-current-year"></span> Serinelec. Todos los derechos reservados. Sitio institucional en español de Chile (es-CL).</p>
+          <p>Ingeniería Eléctrica • Inspecciones ITO • Servicios Industriales</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner Informativo V1 Homologación -->
+    <div class="v1-banner">
+      <div class="container">
+        <span>Serinelec Web V1 — Versión de demostración y homologación institucional</span>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="js/main.js"></script>
+</body>
+</html>
