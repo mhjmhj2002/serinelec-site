@@ -1,0 +1,97 @@
+
+name: Deploy Serinelec Preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'favicon.ico'
+      - 'css/**'
+      - 'js/**'
+      - 'assets/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: serinelec-preview
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via cPanel UAPI
+        shell: bash
+        env:
+          CPANEL_TOKEN: ${{ secrets.CPANEL_API_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${CPANEL_TOKEN:-}" ]; then
+            echo "Secret CPANEL_API_TOKEN ausente"
+            exit 1
+          fi
+
+          HOST="cpanel.serinelec.cl"
+          IP="138.0.120.85"
+          TARGET="public_html/preview.serinelec.cl"
+
+          upload() {
+            local file="$1"
+            local subdir
+            subdir="$(dirname "$file")"
+            local destination="$TARGET"
+
+            if [ "$subdir" != "." ]; then
+              destination="$TARGET/$subdir"
+            fi
+
+            echo "Enviando: $file"
+
+            local response
+            response="$(curl -sS --fail-with-body \
+              --connect-timeout 15 --max-time 90 \
+              --resolve "$HOST:443:$IP" \
+              -H "Authorization: cpanel serinele:${CPANEL_TOKEN}" \
+              -F "dir=$destination" \
+              -F "file-1=@$file;filename=$(basename "$file")" \
+              "https://$HOST/execute/Fileman/upload_files")"
+
+            printf '%s' "$response" | python3 -c '
+          import sys, json
+          try:
+              r = json.load(sys.stdin)
+          except ValueError:
+              print("API nao retornou JSON valido", file=sys.stderr)
+              sys.exit(1)
+          if r.get("status") != 1 or r.get("errors"):
+              print("Upload rejeitado:", r.get("errors"), file=sys.stderr)
+              sys.exit(1)
+          '
+          }
+
+          # Recursos primeiro, paginas depois.
+          while IFS= read -r -d '' file; do
+            upload "$file"
+          done < <(find assets css js -type f -print0 | sort -z)
+
+          for file in *.html; do
+            [ -f "$file" ] || continue
+            [ "$file" = "index.html" ] && continue
+            upload "$file"
+          done
+
+          if [ -f favicon.ico ]; then
+            upload favicon.ico
+          fi
+
+          upload index.html
+
+          echo "Deploy finalizado!"
