@@ -53,7 +53,10 @@ jobs:
               destination="$TARGET/$subdir"
             fi
 
-            echo "Enviando: $file"
+            # A UAPI cPanel aceita caminhos a partir da home (/public_html/...) ou relativos
+            [[ "$destination" != /* ]] && destination="/$destination"
+
+            echo "Enviando: $file -> $destination"
 
             local response
             response="$(curl -sS --fail-with-body \
@@ -61,20 +64,35 @@ jobs:
               --resolve "$HOST:443:$IP" \
               -H "Authorization: cpanel serinele:${CPANEL_TOKEN}" \
               -F "dir=$destination" \
+              -F "overwrite=1" \
               -F "file-1=@$file;filename=$(basename "$file")" \
               "https://$HOST/execute/Fileman/upload_files")"
 
             printf '%s' "$response" | python3 -c '
-          import sys, json
-          try:
-              r = json.load(sys.stdin)
-          except ValueError:
-              print("API nao retornou JSON valido", file=sys.stderr)
-              sys.exit(1)
-          if r.get("status") != 1 or r.get("errors"):
-              print("Upload rejeitado:", r.get("errors"), file=sys.stderr)
-              sys.exit(1)
-          '
+              import sys, json
+              raw = sys.stdin.read()
+              try:
+                  r = json.loads(raw)
+              except ValueError:
+                  print(f"API nao retornou JSON valido. Resposta bruta: {raw[:300]}", file=sys.stderr)
+                  sys.exit(1)
+
+              # UAPI envelopa em {"status": 1, ...} ou {"result": {"status": 1, ...}}
+              result = r.get("result", r)
+              status = result.get("status")
+              errors = result.get("errors") or r.get("errors")
+              warnings = result.get("warnings") or result.get("messages")
+
+              if status != 1 or errors:
+                  print(f"Upload rejeitado para '"'"'$file'"'"':", file=sys.stderr)
+                  print(f"Status: {status}", file=sys.stderr)
+                  if errors:
+                      print(f"Erros: {errors}", file=sys.stderr)
+                  if warnings:
+                      print(f"Avisos/Mensagens: {warnings}", file=sys.stderr)
+                  print(f"Detalhes da resposta: {json.dumps(r, indent=2, ensure_ascii=False)}", file=sys.stderr)
+                  sys.exit(1)
+              '
           }
 
           # Recursos primeiro, paginas depois.
