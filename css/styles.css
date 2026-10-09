@@ -335,6 +335,30 @@ ul, ol {
   gap: var(--space-md);
 }
 
+@media (max-width: 899px) {
+  .header-top-container {
+    gap: var(--space-sm);
+  }
+  .brand-link {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .header-tools {
+    flex: 0 0 auto;
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-width: 600px) {
+  .brand-logo-img {
+    width: min(100%, 300px);
+    height: auto;
+  }
+  .lang-selector {
+    display: none;
+  }
+}
+
 .header-contact-direct {
   display: none;
 }
