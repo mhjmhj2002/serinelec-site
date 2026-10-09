@@ -11,6 +11,9 @@ on:
       - 'css/**'
       - 'js/**'
       - 'assets/**'
+      - 'api/**'
+      - 'pt-br/**'
+      - 'en/**'
 
 permissions:
   contents: read
@@ -100,9 +103,12 @@ jobs:
           }
 
           # Recursos primeiro, paginas depois.
-          while IFS= read -r -d '' file; do
-            upload "$file"
-          done < <(find assets css js -type f -print0 | sort -z)
+          for directory in assets css js api pt-br en; do
+            [ -d "$directory" ] || continue
+            while IFS= read -r -d '' file; do
+              upload "$file"
+            done < <(find "$directory" -type f -print0 | sort -z)
+          done
 
           for file in *.html; do
             [ -f "$file" ] || continue

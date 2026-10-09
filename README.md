@@ -75,12 +75,10 @@ Para publicar el sitio en cualquier servidor web o servicio de hosting (Apache, 
 
 ## 5. Idiomas y Localización
 
-- **Idioma implementado:** Español de Chile (`<html lang="es-CL">`).
-- **Selector de idiomas:** Incluye banderas e indicadores visuales para:
-  - 🇨🇱 **Español** (Activo).
-  - 🇺🇸 **English** (*Próximamente*).
-  - 🇧🇷 **Português** (*Em breve / Próximamente*).
-- Las opciones en inglés y portugués no ejecutan enlaces rotos; presentan una notificación accesible indicando que estarán disponibles en versiones futuras.
+- **Idiomas con rutas estáticas:** Español de Chile en la raíz, Português (Brasil) en `/pt-br/` e English en `/en/`.
+- Cada idioma cuenta con las seis páginas institucionales y comparte CSS, JavaScript e imágenes locales.
+- El selector debe preservar la página equivalente al cambiar de idioma. No se debe usar traducción de contenido principal exclusivamente por JavaScript.
+- La publicación y homologación de idiomas se controlan en `ANDAMENTO_MELHORIAS.md`; la existencia de archivos locales no equivale a aprobación del Owner.
 
 ---
 
@@ -88,3 +86,17 @@ Para publicar el sitio en cualquier servidor web o servicio de hosting (Apache, 
 
 1. **Formulario de Contacto:** Cuenta con validación nativa en el navegador, pero no envía correos de forma encubierta ni simula envíos falsos. Notifica con honestidad que se trata de la versión de homologación e invita a contactar a través del teléfono `+56 9 8568 0824` o el e-mail `lcarrasco@serinelec.cl`.
 2. **Backend:** No existe capa de backend ni almacenamiento en base de datos.
+
+---
+
+## 7. Estado obligatorio de las tareas
+
+El registro `/.local/Site Serinelec/ANDAMENTO_MELHORIAS.md` es la fuente de estado operacional. Todo agente debe actualizarlo con evidencia real:
+
+1. `TO-DO`: no se inició trabajo.
+2. `DOING`: el desarrollo fue asumido y está en curso.
+3. `DOING — BLOCKED`: el desarrollo no puede avanzar por una dependencia externa identificada.
+4. `DEVELOPED`: el desarrollo local y las verificaciones aplicables finalizaron; puede faltar deploy, homologación visual o aceptación del Owner.
+5. `DONE`: aprobado/homologado por el Owner cuando esa validación sea requerida.
+
+Al tomar una tarea `TO-DO`, cámbiela a `DOING` antes de editar el sitio. Al finalizar su desarrollo local, cámbiela a `DEVELOPED`; nunca deje una tarea en `DOING` por falta de una homologación que no pertenece al desarrollo. Ningún agente debe hacer deploy, commit o publicación para cambiar el estado.
