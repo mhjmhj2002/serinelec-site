@@ -90,7 +90,7 @@ jobs:
 
             local response
             response="$(curl -sS --fail-with-body \
-              --connect-timeout 15 --max-time 90 \
+              --connect-timeout 60 --max-time 90 \
               --resolve "$HOST:443:$IP" \
               -H "Authorization: cpanel serinele:${CPANEL_TOKEN}" \
               -F "dir=$destination" \
