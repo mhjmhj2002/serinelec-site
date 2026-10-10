@@ -1,10 +1,9 @@
-
-name: Deploy Preview (HML)
+name: Deploy Production
 
 on:
   workflow_dispatch:
   push:
-    branches: [hml]
+    branches: [ "main" ]
     paths:
       - '*.html'
       - 'favicon.ico'
@@ -19,7 +18,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: serinelec-preview
+  group: serinelec-production
   cancel-in-progress: false
 
 jobs:
@@ -33,18 +32,18 @@ jobs:
       - name: Deploy via cPanel UAPI
         shell: bash
         env:
-          CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN_HML }}
+          CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN_PRD }}
         run: |
           set -euo pipefail
 
           if [ -z "${CPANEL_TOKEN:-}" ]; then
-            echo "Secret CPANEL_TOKEN_HML ausente"
+            echo "Secret CPANEL_TOKEN_PRD ausente"
             exit 1
           fi
 
           HOST="cpanel.serinelec.cl"
           IP="138.0.120.85"
-          TARGET="public_html/preview.serinelec.cl"
+          TARGET="public_html"
 
           # Cria script verificador auxiliar em python
           cat << 'PYEOF' > /tmp/check_upload.py
