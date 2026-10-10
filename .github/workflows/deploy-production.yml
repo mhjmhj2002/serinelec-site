@@ -73,56 +73,69 @@ jobs:
               sys.exit(1)
           PYEOF
 
-          upload() {
-            local file="$1"
-            local subdir
-            subdir="$(dirname "$file")"
+          # Envia varios arquivos de UMA pasta numa unica conexao (evita bloqueio por excesso de conexoes)
+          upload_batch() {
+            local subdir="$1"; shift
             local destination="$TARGET"
-
-            if [ "$subdir" != "." ]; then
-              destination="$TARGET/$subdir"
-            fi
-
-            # A UAPI cPanel aceita caminhos a partir da home (/public_html/...) ou relativos
+            [ "$subdir" != "." ] && destination="$TARGET/$subdir"
             [[ "$destination" != /* ]] && destination="/$destination"
 
-            echo "Enviando: $file -> $destination"
+            echo "Enviando $# arquivo(s) -> $destination"
 
-            local response
-            response="$(curl -sS --fail-with-body \
-              --connect-timeout 120 --max-time 240 \
-              --resolve "$HOST:443:$IP" \
-              -H "Authorization: cpanel serinele:${CPANEL_TOKEN}" \
-              -F "dir=$destination" \
-              -F "overwrite=1" \
-              -F "file-1=@$file;filename=$(basename "$file")" \
-              "https://$HOST/execute/Fileman/upload_files")"
+            local args=() i=1 f
+            for f in "$@"; do
+              args+=(-F "file-$i=@$f;filename=$(basename "$f")")
+              i=$((i+1))
+            done
 
-            python3 /tmp/check_upload.py "$file" <<< "$response"
+            local attempt response
+            for attempt in 1 2 3 4 5; do
+              if response="$(curl -sS --fail-with-body \
+                --connect-timeout 30 --max-time 300 \
+                --resolve "$HOST:443:$IP" \
+                -H "Authorization: cpanel serinele:${CPANEL_TOKEN}" \
+                -F "dir=$destination" \
+                -F "overwrite=1" \
+                "${args[@]}" \
+                "https://$HOST/execute/Fileman/upload_files")"; then
+                python3 /tmp/check_upload.py "$destination" <<< "$response"
+                return 0
+              fi
+              echo "Tentativa $attempt falhou; aguardando $((attempt*20))s..."
+              sleep $((attempt*20))
+            done
+            echo "Falha definitiva em $destination" >&2
+            return 1
+          }
+
+          deploy_dir() {
+            local dir="$1" exclude="${2:-}" d files
+            while IFS= read -r -d '' d; do
+              files=()
+              while IFS= read -r -d '' f; do files+=("$f"); done \
+                < <(find "$d" -maxdepth 1 -type f -print0 | sort -z)
+              [ "${#files[@]}" -gt 0 ] && upload_batch "$d" "${files[@]}"
+              sleep 3
+            done < <(find "$dir" -type d -print0 | sort -z)
           }
 
           # Recursos primeiro, paginas depois.
           for directory in assets css js api pt-br en; do
             [ -d "$directory" ] || continue
-            while IFS= read -r -d '' file; do
-              upload "$file"
-              sleep 1
-            done < <(find "$directory" -type f -print0 | sort -z)
+            deploy_dir "$directory"
           done
 
+          # Raiz: html (exceto index) + favicon, depois index por ultimo
+          root_files=()
           for file in *.html; do
             [ -f "$file" ] || continue
             [ "$file" = "index.html" ] && continue
-            upload "$file"
-            sleep 1
+            root_files+=("$file")
           done
+          [ -f favicon.ico ] && root_files+=(favicon.ico)
+          [ "${#root_files[@]}" -gt 0 ] && upload_batch . "${root_files[@]}"
+          sleep 3
 
-          if [ -f favicon.ico ]; then
-            upload favicon.ico
-            sleep 1
-          fi
-
-          upload index.html
-          sleep 1
+          upload_batch . index.html
 
           echo "Deploy finalizado!"
