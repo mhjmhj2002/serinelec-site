@@ -150,3 +150,7 @@ vite.config.ts.timestamp-*
 
 # Local working files
 .local/
+
+# Private endpoint configuration and server files
+api/config.php
+.htaccess

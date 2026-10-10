@@ -24,7 +24,32 @@ if ($contentLength < 1 || $contentLength > 10000) {
     reply(413, false, 'Solicitud no válida.');
 }
 
-if (getenv('CONTACT_FORM_ENABLED') !== '1') {
+$configFile = __DIR__ . '/config.php';
+$fallbackConfig = file_exists($configFile) ? require $configFile : [];
+
+$getConfig = static function (string $key, ?string $default = null) use ($fallbackConfig): ?string {
+    $val = getenv($key);
+    if ($val !== false && $val !== '') {
+        return (string) $val;
+    }
+
+    if (isset($_SERVER[$key]) && (string) $_SERVER[$key] !== '') {
+        return (string) $_SERVER[$key];
+    }
+
+    $redirectKey = 'REDIRECT_' . $key;
+    if (isset($_SERVER[$redirectKey]) && (string) $_SERVER[$redirectKey] !== '') {
+        return (string) $_SERVER[$redirectKey];
+    }
+
+    if (isset($fallbackConfig[$key]) && (string) $fallbackConfig[$key] !== '') {
+        return (string) $fallbackConfig[$key];
+    }
+
+    return $default;
+};
+
+if ($getConfig('CONTACT_FORM_ENABLED') !== '1') {
     reply(503, false, 'El servicio de mensajería no está disponible por el momento.');
 }
 
@@ -69,8 +94,8 @@ if (@file_put_contents($rateFile, json_encode($attempts), LOCK_EX) === false) {
     reply(503, false, 'El servicio de mensajería no está disponible por el momento.');
 }
 
-$env = (string) getenv('CONTACT_FORM_ENV');
-$transport = (string) (getenv('CONTACT_FORM_TRANSPORT') ?: 'mail');
+$env = (string) ($getConfig('CONTACT_FORM_ENV') ?? '');
+$transport = (string) ($getConfig('CONTACT_FORM_TRANSPORT', 'mail') ?: 'mail');
 
 if ($transport === 'mock') {
     if ($env !== 'development') {
@@ -79,7 +104,7 @@ if ($transport === 'mock') {
     }
 
     $projectRoot = dirname(__DIR__);
-    $configuredMockDir = (string) getenv('CONTACT_FORM_MOCK_DIR');
+    $configuredMockDir = (string) ($getConfig('CONTACT_FORM_MOCK_DIR') ?? '');
     $mockDir = $configuredMockDir !== '' ? $configuredMockDir : $projectRoot . DIRECTORY_SEPARATOR . '.local' . DIRECTORY_SEPARATOR . 'dev' . DIRECTORY_SEPARATOR . 'contact-form-outbox';
 
     // Normalizar caminhos para validação de segurança
@@ -138,8 +163,8 @@ if ($transport === 'mock') {
     reply(200, true, '[DEV MOCK] Mensaje capturado localmente para pruebas de desarrollo. No se envió correo real.');
 }
 
-$recipient = (string) getenv('CONTACT_FORM_TO');
-$from = (string) getenv('CONTACT_FORM_FROM');
+$recipient = (string) ($getConfig('CONTACT_FORM_TO') ?? '');
+$from = (string) ($getConfig('CONTACT_FORM_FROM') ?? '');
 if (!filter_var($recipient, FILTER_VALIDATE_EMAIL) || !filter_var($from, FILTER_VALIDATE_EMAIL)) {
     error_log('Serinelec contact: missing private mail configuration.');
     reply(503, false, 'El servicio de mensajería no está disponible por el momento.');
