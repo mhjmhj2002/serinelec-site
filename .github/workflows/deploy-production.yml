@@ -1,0 +1,124 @@
+name: Deploy Production
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - '*.html'
+      - 'favicon.ico'
+      - 'css/**'
+      - 'js/**'
+      - 'assets/**'
+      - 'api/**'
+      - 'pt-br/**'
+      - 'en/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: serinelec-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via cPanel UAPI
+        shell: bash
+        env:
+          CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN_PRD }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${CPANEL_TOKEN:-}" ]; then
+            echo "Secret CPANEL_TOKEN_PRD ausente"
+            exit 1
+          fi
+
+          HOST="cpanel.serinelec.cl"
+          IP="138.0.120.85"
+          TARGET="public_html"
+
+          # Cria script verificador auxiliar em python
+          cat << 'PYEOF' > /tmp/check_upload.py
+          import sys, json
+
+          filename = sys.argv[1] if len(sys.argv) > 1 else 'arquivo'
+          raw = sys.stdin.read()
+          try:
+              r = json.loads(raw)
+          except Exception:
+              print(f"API nao retornou JSON valido. Resposta bruta: {raw[:300]}", file=sys.stderr)
+              sys.exit(1)
+
+          result = r.get("result", r)
+          status = result.get("status")
+          errors = result.get("errors") or r.get("errors")
+          warnings = result.get("warnings") or result.get("messages")
+
+          if status != 1 or errors:
+              print(f"Upload rejeitado para {filename}:", file=sys.stderr)
+              print(f"Status: {status}", file=sys.stderr)
+              if errors:
+                  print(f"Erros: {errors}", file=sys.stderr)
+              if warnings:
+                  print(f"Avisos/Mensagens: {warnings}", file=sys.stderr)
+              print(f"Detalhes da resposta: {json.dumps(r, indent=2, ensure_ascii=False)}", file=sys.stderr)
+              sys.exit(1)
+          PYEOF
+
+          upload() {
+            local file="$1"
+            local subdir
+            subdir="$(dirname "$file")"
+            local destination="$TARGET"
+
+            if [ "$subdir" != "." ]; then
+              destination="$TARGET/$subdir"
+            fi
+
+            # A UAPI cPanel aceita caminhos a partir da home (/public_html/...) ou relativos
+            [[ "$destination" != /* ]] && destination="/$destination"
+
+            echo "Enviando: $file -> $destination"
+
+            local response
+            response="$(curl -sS --fail-with-body \
+              --connect-timeout 15 --max-time 90 \
+              --resolve "$HOST:443:$IP" \
+              -H "Authorization: cpanel serinele:${CPANEL_TOKEN}" \
+              -F "dir=$destination" \
+              -F "overwrite=1" \
+              -F "file-1=@$file;filename=$(basename "$file")" \
+              "https://$HOST/execute/Fileman/upload_files")"
+
+            python3 /tmp/check_upload.py "$file" <<< "$response"
+          }
+
+          # Recursos primeiro, paginas depois.
+          for directory in assets css js api pt-br en; do
+            [ -d "$directory" ] || continue
+            while IFS= read -r -d '' file; do
+              upload "$file"
+            done < <(find "$directory" -type f -print0 | sort -z)
+          done
+
+          for file in *.html; do
+            [ -f "$file" ] || continue
+            [ "$file" = "index.html" ] && continue
+            upload "$file"
+          done
+
+          if [ -f favicon.ico ]; then
+            upload favicon.ico
+          fi
+
+          upload index.html
+
+          echo "Deploy finalizado!"
