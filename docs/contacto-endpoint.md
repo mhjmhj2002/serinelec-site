@@ -2,11 +2,28 @@
 
 `/api/contacto.php` recibe únicamente `POST` de formulario y permanece apagado por defecto. No hay destinatarios, credenciales ni valores de correo en el repositorio.
 
-Para activarlo en el hosting de homologación, el Owner debe definir mediante la configuración privada de PHP/cPanel:
+Para activarlo en el hosting de homologación o producción, la configuración puede proveerse por variables de entorno o mediante el archivo de contingencia local `api/config.php` (TASK-006, ajustado en TASK-007):
 
-- `CONTACT_FORM_ENABLED=1`
+- `CONTACT_FORM_ENV`: entorno de ejecución (`production` o `development`).
+- `CONTACT_FORM_ENABLED`: `1` para habilitar el endpoint.
+- `CONTACT_FORM_TRANSPORT`: transporte utilizado (`mail` o `mock`).
 - `CONTACT_FORM_TO`: destinatario corporativo aprobado.
 - `CONTACT_FORM_FROM`: buzón existente y autorizado del dominio.
+
+### Plantilla y seguridad de configuración (TASK-007)
+- El repositorio incluye únicamente la plantilla versionada `api/config.php.example` con valores genéricos/placeholders.
+- El archivo real `api/config.php` está ignorado en `.gitignore` para no exponer e-mails nem credenciais corporativas no histórico.
+- En el servidor de hosting, el Owner puede crear o copiar `api/config.php` a partir de la plantilla y configurar los valores reales de producción.
+
+### Resolución de configuración y compatibilidad PHP-FPM (TASK-006)
+Bajo Apache con PHP-FPM / FastCGI (común en cPanel), las directivas `SetEnv` pueden no propagarse directamente a `getenv()`. Por ello, `api/contacto.php` resuelve la configuración siguiendo un orden jerárquico:
+1. `getenv($key)`
+2. `$_SERVER[$key]`
+3. `$_SERVER['REDIRECT_' . $key]`
+4. `api/config.php` (archivo de contingencia local no versionado; si no existe, fallback array vacío `[]`)
+5. Valor por defecto `$default`
+
+El acceso HTTP directo tanto a `config.php` como a `config.php.example` está protegido directamente en PHP mediante verificación de `SCRIPT_FILENAME` (respondiendo 403 Forbidden com `Access denied` al intentarse ejecución direta vía URL, sin depender ni alterar el `.htaccess` del servidor).
 
 Antes de activar, confirmar SPF, DKIM y DMARC del dominio y realizar una prueba manual única a una cuenta de pruebas autorizada. Para desactivar, retirar `CONTACT_FORM_ENABLED` o establecerlo en cualquier valor distinto de `1`.
 

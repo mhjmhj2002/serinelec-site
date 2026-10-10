@@ -1,0 +1,16 @@
+<?php
+declare(strict_types=1);
+
+// Proteção nativa em PHP: impede execução direta pela URL sem tocar em .htaccess
+if (in_array(basename($_SERVER['SCRIPT_FILENAME'] ?? ''), ['config.php', 'config.php.example'], true)) {
+    http_response_code(403);
+    exit('Access denied');
+}
+
+return [
+    'CONTACT_FORM_ENV'       => 'production',
+    'CONTACT_FORM_ENABLED'   => '1',
+    'CONTACT_FORM_TRANSPORT' => 'mail',
+    'CONTACT_FORM_TO'        => 'contacto@example.com',
+    'CONTACT_FORM_FROM'      => 'no-reply@example.com',
+];
