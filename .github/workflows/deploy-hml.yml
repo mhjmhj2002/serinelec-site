@@ -1,10 +1,10 @@
 
-name: Deploy Serinelec Preview
+name: Deploy Preview (HML)
 
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [hml]
     paths:
       - '*.html'
       - 'favicon.ico'
@@ -33,12 +33,12 @@ jobs:
       - name: Deploy via cPanel UAPI
         shell: bash
         env:
-          CPANEL_TOKEN: ${{ secrets.CPANEL_API_TOKEN }}
+          CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN_HML }}
         run: |
           set -euo pipefail
 
           if [ -z "${CPANEL_TOKEN:-}" ]; then
-            echo "Secret CPANEL_API_TOKEN ausente"
+            echo "Secret CPANEL_TOKEN_HML ausente"
             exit 1
           fi
 
