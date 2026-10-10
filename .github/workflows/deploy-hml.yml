@@ -107,6 +107,7 @@ jobs:
             [ -d "$directory" ] || continue
             while IFS= read -r -d '' file; do
               upload "$file"
+              sleep 1
             done < <(find "$directory" -type f -print0 | sort -z)
           done
 
@@ -114,12 +115,15 @@ jobs:
             [ -f "$file" ] || continue
             [ "$file" = "index.html" ] && continue
             upload "$file"
+            sleep 1
           done
 
           if [ -f favicon.ico ]; then
             upload favicon.ico
+            sleep 1
           fi
 
           upload index.html
+          sleep 1
 
           echo "Deploy finalizado!"
